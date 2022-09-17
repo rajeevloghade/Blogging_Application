@@ -1,0 +1,22 @@
+Blogging Application : 
+
+
+Technologies used :
+
+1. Java 8
+2. Maven
+3. Spring Boot
+4. MySQL : 
+
+Queries : 
+
+create databse blogging_application;
+
+use blogging_application;
+
+show tables;
+
+5. Spring Security
+6. Hibernate
+7. Swagger Doc
+8. AWS
