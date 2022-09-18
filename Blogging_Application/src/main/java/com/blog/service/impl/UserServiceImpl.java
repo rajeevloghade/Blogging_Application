@@ -1,46 +1,51 @@
 package com.blog.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.blog.dao.IUserDao;
 import com.blog.entities.User;
+import com.blog.exception.ResourceNotFound;
 import com.blog.service.IUserService;
 import com.blog.wrapper.UserWrapper;
 
+@Service
 public class UserServiceImpl implements IUserService {
 
 	private @Autowired IUserDao userDao;
 
 	@Override
-	public UserWrapper createUser(UserWrapper user) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserWrapper createUser(UserWrapper userWrapper) {
+		return entityToWrapper(userDao.save(wrapperToEntity(userWrapper)));
 	}
 
 	@Override
-	public UserWrapper updateUser(UserWrapper user, Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserWrapper updateUser(UserWrapper userWrapper, Integer userId) {
+		User userById = userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId));
+		userById.setName(userWrapper.getName());
+		userById.setEmail(userWrapper.getEmail());
+		userById.setAbout(userWrapper.getAbout());
+		userById.setPassword(userWrapper.getPassword());
+		return entityToWrapper(userDao.save(userById));
 	}
 
 	@Override
 	public UserWrapper getUserById(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return entityToWrapper(
+				userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId)));
 	}
 
 	@Override
 	public List<UserWrapper> getAllUser() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.findAll().stream().map(user -> entityToWrapper(user)).collect(Collectors.toList());
 	}
 
 	@Override
 	public void deleteUser(Integer userId) {
-		// TODO Auto-generated method stub
-
+		userDao.delete(userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId)));
 	}
 
 	public User wrapperToEntity(UserWrapper userWrapper) {
