@@ -2,6 +2,8 @@ package com.blog.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +27,12 @@ public class UserRestController {
 	private @Autowired IUserService userService;
 
 	@PostMapping("createUser")
-	public ResponseEntity<UserWrapper> createUser(@RequestBody UserWrapper userWrapper) {
+	public ResponseEntity<UserWrapper> createUser(@Valid @RequestBody UserWrapper userWrapper) {
 		return new ResponseEntity<>(userService.createUser(userWrapper), HttpStatus.CREATED);
 	}
 
 	@PutMapping("updateUser/{userId}")
-	public ResponseEntity<UserWrapper> updateUser(@RequestBody UserWrapper userWrapper,
+	public ResponseEntity<UserWrapper> updateUser(@Valid @RequestBody UserWrapper userWrapper,
 			@PathVariable("userId") Integer userId) {
 		return ResponseEntity.ok(userService.updateUser(userWrapper, userId));
 	}

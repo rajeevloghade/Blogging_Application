@@ -3,12 +3,13 @@ package com.blog.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.dao.IUserDao;
 import com.blog.entities.User;
-import com.blog.exception.ResourceNotFound;
+import com.blog.exception.ResourceNotFoundException;
 import com.blog.service.IUserService;
 import com.blog.wrapper.UserWrapper;
 
@@ -16,6 +17,7 @@ import com.blog.wrapper.UserWrapper;
 public class UserServiceImpl implements IUserService {
 
 	private @Autowired IUserDao userDao;
+	private @Autowired ModelMapper modelMapper;
 
 	@Override
 	public UserWrapper createUser(UserWrapper userWrapper) {
@@ -24,7 +26,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public UserWrapper updateUser(UserWrapper userWrapper, Integer userId) {
-		User userById = userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId));
+		User userById = userDao.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		userById.setName(userWrapper.getName());
 		userById.setEmail(userWrapper.getEmail());
 		userById.setAbout(userWrapper.getAbout());
@@ -35,7 +38,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public UserWrapper getUserById(Integer userId) {
 		return entityToWrapper(
-				userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId)));
+				userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId)));
 	}
 
 	@Override
@@ -45,26 +48,27 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void deleteUser(Integer userId) {
-		userDao.delete(userDao.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "userId", userId)));
+		userDao.delete(
+				userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId)));
 	}
 
 	public User wrapperToEntity(UserWrapper userWrapper) {
-		User user = new User();
-		user.setUserId(userWrapper.getUserId());
-		user.setName(userWrapper.getName());
-		user.setEmail(userWrapper.getEmail());
-		user.setPassword(userWrapper.getPassword());
-		user.setAbout(userWrapper.getAbout());
-		return user;
+		return modelMapper.map(userWrapper, User.class);
+//		user.setUserId(userWrapper.getUserId());
+//		user.setName(userWrapper.getName());
+//		user.setEmail(userWrapper.getEmail());
+//		user.setPassword(userWrapper.getPassword());
+//		user.setAbout(userWrapper.getAbout());
+//		return user;
 	}
 
 	public UserWrapper entityToWrapper(User user) {
-		UserWrapper userWrapper = new UserWrapper();
-		userWrapper.setUserId(user.getUserId());
-		userWrapper.setName(user.getName());
-		userWrapper.setEmail(user.getEmail());
-		userWrapper.setPassword(user.getPassword());
-		userWrapper.setAbout(user.getAbout());
-		return userWrapper;
+		return modelMapper.map(user, UserWrapper.class);
+//		userWrapper.setUserId(user.getUserId());
+//		userWrapper.setName(user.getName());
+//		userWrapper.setEmail(user.getEmail());
+//		userWrapper.setPassword(user.getPassword());
+//		userWrapper.setAbout(user.getAbout());
+//		return userWrapper;
 	}
 }
