@@ -20,7 +20,7 @@ public class UserWrapper {
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "a digit must occur at least once and a lower case letter must occur at least once and an upper case letter must occur at least once and a special character must occur at least once and no whitespace allowed in the entire string and anything, at least eight places though in paasword")
 	private String password;
 
-	@NotEmpty(message = "email address is invalid")
+	@NotEmpty
 	private String about;
 
 	public int getUserId() {
