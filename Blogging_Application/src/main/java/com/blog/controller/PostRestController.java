@@ -69,4 +69,8 @@ public class PostRestController {
 		return new ResponseEntity<List<PostWrapper>>(postService.findPostByCategory(categoryId), HttpStatus.OK);
 	}
 
+	@GetMapping("searchPost/{title}")
+	public ResponseEntity<List<PostWrapper>> searchPost(@PathVariable("title") String title) {
+		return new ResponseEntity<List<PostWrapper>>(postService.searchPost(title), HttpStatus.OK);
+	}
 }

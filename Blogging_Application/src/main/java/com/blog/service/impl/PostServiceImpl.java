@@ -100,6 +100,12 @@ public class PostServiceImpl implements IPostService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public List<PostWrapper> searchPost(String title) {
+		return postDao.findByTitleContaining(title).stream().map(post -> entityToWrapper(post))
+				.collect(Collectors.toList());
+	}
+
 	public Post wrapperToEntity(PostWrapper postWrapper) {
 		return modelMapper.map(postWrapper, Post.class);
 	}

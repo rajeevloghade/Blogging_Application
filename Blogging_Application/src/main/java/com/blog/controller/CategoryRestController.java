@@ -57,4 +57,9 @@ public class CategoryRestController {
 		return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
 	}
 
+	@GetMapping("searchCategory/{categoryName}")
+	public ResponseEntity<List<CategoryWrapper>> searchCategory(@PathVariable("categoryName") String categoryName) {
+		return ResponseEntity.ok(categoryService.searchCategory(categoryName));
+	}
+
 }

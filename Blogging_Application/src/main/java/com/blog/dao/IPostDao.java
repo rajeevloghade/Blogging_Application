@@ -14,4 +14,6 @@ public interface IPostDao extends JpaRepository<Post, Integer> {
 
 	List<Post> findPostByUser(User user);
 
+	List<Post> findByTitleContaining(String title);
+
 }

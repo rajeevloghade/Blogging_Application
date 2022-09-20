@@ -15,4 +15,6 @@ public interface ICategoryService {
 	void deleteCategory(Integer categoryId);
 
 	List<CategoryWrapper> getAllCategory(Integer pageNumber, Integer pageSize, String sortBy);
+
+	List<CategoryWrapper> searchCategory(String categoryName);
 }

@@ -21,4 +21,6 @@ public interface IPostService {
 
 	void deletePost(Integer postId);
 
+	List<PostWrapper> searchPost(String title);
+
 }

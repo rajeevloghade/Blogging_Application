@@ -57,4 +57,9 @@ public class UserRestController {
 		return ResponseEntity.ok(userService.getUserById(userId));
 	}
 
+	@GetMapping("searchUser/{userName}")
+	public ResponseEntity<List<UserWrapper>> searchUser(@PathVariable("userName") String userName) {
+		return ResponseEntity.ok(userService.searchUser(userName));
+	}
+
 }

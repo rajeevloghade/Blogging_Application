@@ -15,4 +15,6 @@ public interface IUserService {
 	void deleteUser(Integer userId);
 
 	List<UserWrapper> getAllUser(Integer pageNumber, Integer pageSize, String sortBy);
+
+	List<UserWrapper> searchUser(String userName);
 }

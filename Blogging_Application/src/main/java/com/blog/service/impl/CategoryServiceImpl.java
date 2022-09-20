@@ -57,6 +57,12 @@ public class CategoryServiceImpl implements ICategoryService {
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId)));
 	}
 
+	@Override
+	public List<CategoryWrapper> searchCategory(String categoryName) {
+		return categoryDao.findByCategoryNameContaining(categoryName).stream()
+				.map(category -> entityToWrapper(category)).collect(Collectors.toList());
+	}
+
 	public Category wrapperToEntity(CategoryWrapper categoryWrapper) {
 		return modelMapper.map(categoryWrapper, Category.class);
 	}

@@ -59,6 +59,12 @@ public class UserServiceImpl implements IUserService {
 				userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId)));
 	}
 
+	@Override
+	public List<UserWrapper> searchUser(String userName) {
+		return userDao.findByNameContaining(userName).stream().map(category -> entityToWrapper(category))
+				.collect(Collectors.toList());
+	}
+
 	public User wrapperToEntity(UserWrapper userWrapper) {
 		return modelMapper.map(userWrapper, User.class);
 //		user.setUserId(userWrapper.getUserId());
@@ -78,4 +84,5 @@ public class UserServiceImpl implements IUserService {
 //		userWrapper.setAbout(user.getAbout());
 //		return userWrapper;
 	}
+
 }
