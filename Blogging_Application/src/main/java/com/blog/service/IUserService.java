@@ -12,7 +12,7 @@ public interface IUserService {
 
 	UserWrapper getUserById(Integer userId);
 
-	List<UserWrapper> getAllUser();
-
 	void deleteUser(Integer userId);
+
+	List<UserWrapper> getAllUser(Integer pageNumber, Integer pageSize, String sortBy);
 }

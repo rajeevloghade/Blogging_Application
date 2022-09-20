@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.service.ICategoryService;
@@ -44,8 +45,11 @@ public class CategoryRestController {
 	}
 
 	@GetMapping("getAllCategories")
-	public ResponseEntity<List<CategoryWrapper>> getAllCategory() {
-		return ResponseEntity.ok(categoryService.getAllCategory());
+	public ResponseEntity<List<CategoryWrapper>> getAllCategory(
+			@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(name = "sortBy", required = false, defaultValue = "categoryId") String sortBy) {
+		return ResponseEntity.ok(categoryService.getAllCategory(pageNumber, pageSize, sortBy));
 	}
 
 	@GetMapping("getCategoryById/{categoryId}")

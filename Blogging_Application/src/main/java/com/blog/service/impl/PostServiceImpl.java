@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.blog.dao.ICategoryDao;
@@ -16,6 +20,7 @@ import com.blog.entities.Post;
 import com.blog.entities.User;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.service.IPostService;
+import com.blog.utils.PostResponse;
 import com.blog.wrapper.CategoryWrapper;
 import com.blog.wrapper.PostWrapper;
 import com.blog.wrapper.UserWrapper;
@@ -59,8 +64,18 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public List<PostWrapper> getAllPost() {
-		return postDao.findAll().stream().map(post -> entityToWrapper(post)).collect(Collectors.toList());
+	public PostResponse getAllPost(Integer pageNumber, Integer pageSize, String sortBy) {
+		PostResponse postResponse = new PostResponse();
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+		Page<Post> pagePosts = postDao.findAll(pageable);
+		List<Post> allPosts = pagePosts.getContent();
+		postResponse.setPosts(allPosts.stream().map(post -> entityToWrapper(post)).collect(Collectors.toList()));
+		postResponse.setPageNumber(pagePosts.getNumber());
+		postResponse.setPageSize(pagePosts.getSize());
+		postResponse.setTotalElements(pagePosts.getTotalElements());
+		postResponse.setTotalPages(pagePosts.getTotalPages());
+		postResponse.setLastPage(pagePosts.isLast());
+		return postResponse;
 	}
 
 	@Override

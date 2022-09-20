@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.service.IPostService;
+import com.blog.utils.PostResponse;
 import com.blog.utils.Response;
 import com.blog.wrapper.PostWrapper;
 
@@ -45,8 +47,11 @@ public class PostRestController {
 	}
 
 	@GetMapping("getAllPosts")
-	public ResponseEntity<List<PostWrapper>> getAllPosts() {
-		return ResponseEntity.ok(postService.getAllPost());
+	public ResponseEntity<PostResponse> getAllPosts(
+			@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(name = "sortBy", required = false, defaultValue = "postId") String sortBy) {
+		return new ResponseEntity<PostResponse>(postService.getAllPost(pageNumber, pageSize, sortBy), HttpStatus.OK);
 	}
 
 	@GetMapping("getPostById/{postId}")

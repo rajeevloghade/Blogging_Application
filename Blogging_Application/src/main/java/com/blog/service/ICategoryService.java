@@ -12,7 +12,7 @@ public interface ICategoryService {
 
 	CategoryWrapper getCategoryById(Integer categoryId);
 
-	List<CategoryWrapper> getAllCategory();
-
 	void deleteCategory(Integer categoryId);
+
+	List<CategoryWrapper> getAllCategory(Integer pageNumber, Integer pageSize, String sortBy);
 }

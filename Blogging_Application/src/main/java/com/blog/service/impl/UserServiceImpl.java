@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.blog.dao.IUserDao;
@@ -42,8 +46,11 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<UserWrapper> getAllUser() {
-		return userDao.findAll().stream().map(user -> entityToWrapper(user)).collect(Collectors.toList());
+	public List<UserWrapper> getAllUser(Integer pageNumber, Integer pageSize, String sortBy) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+		Page<User> pagePosts = userDao.findAll(pageable);
+		List<User> allUsers = pagePosts.getContent();
+		return allUsers.stream().map(user -> entityToWrapper(user)).collect(Collectors.toList());
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.service.IUserService;
@@ -44,8 +45,11 @@ public class UserRestController {
 	}
 
 	@GetMapping("getAllUsers")
-	public ResponseEntity<List<UserWrapper>> getAllUsers() {
-		return ResponseEntity.ok(userService.getAllUser());
+	public ResponseEntity<List<UserWrapper>> getAllUsers(
+			@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(name = "sortBy", required = false, defaultValue = "userId") String sortBy) {
+		return ResponseEntity.ok(userService.getAllUser(pageNumber, pageSize, sortBy));
 	}
 
 	@GetMapping("getUserById/{userId}")

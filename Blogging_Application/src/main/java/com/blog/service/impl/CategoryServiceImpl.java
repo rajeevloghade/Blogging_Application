@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.blog.dao.ICategoryDao;
@@ -40,8 +44,11 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public List<CategoryWrapper> getAllCategory() {
-		return categoryDao.findAll().stream().map(category -> entityToWrapper(category)).collect(Collectors.toList());
+	public List<CategoryWrapper> getAllCategory(Integer pageNumber, Integer pageSize, String sortBy) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+		Page<Category> pagePosts = categoryDao.findAll(pageable);
+		List<Category> allCategories = pagePosts.getContent();
+		return allCategories.stream().map(category -> entityToWrapper(category)).collect(Collectors.toList());
 	}
 
 	@Override

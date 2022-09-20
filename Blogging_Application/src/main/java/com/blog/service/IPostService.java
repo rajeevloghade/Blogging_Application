@@ -2,6 +2,7 @@ package com.blog.service;
 
 import java.util.List;
 
+import com.blog.utils.PostResponse;
 import com.blog.wrapper.PostWrapper;
 
 public interface IPostService {
@@ -12,12 +13,12 @@ public interface IPostService {
 
 	PostWrapper getPostById(Integer postId);
 
-	List<PostWrapper> getAllPost();
-
-	void deletePost(Integer postId);
-
 	List<PostWrapper> findPostByCategory(Integer categoryId);
 
 	List<PostWrapper> findPostByUser(Integer userId);
+
+	PostResponse getAllPost(Integer pageNumber, Integer pageSize, String sortBy);
+
+	void deletePost(Integer postId);
 
 }
