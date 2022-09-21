@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.service.IUserService;
+import com.blog.utils.IConstants;
 import com.blog.utils.Response;
 import com.blog.wrapper.UserWrapper;
 
@@ -46,8 +47,8 @@ public class UserRestController {
 
 	@GetMapping("getAllUsers")
 	public ResponseEntity<List<UserWrapper>> getAllUsers(
-			@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(name = "pageNumber", required = false, defaultValue = IConstants.PAGE_NUMBER) Integer pageNumber,
+			@RequestParam(name = "pageSize", required = false, defaultValue = IConstants.PAGE_SIZE) Integer pageSize,
 			@RequestParam(name = "sortBy", required = false, defaultValue = "userId") String sortBy) {
 		return ResponseEntity.ok(userService.getAllUser(pageNumber, pageSize, sortBy));
 	}

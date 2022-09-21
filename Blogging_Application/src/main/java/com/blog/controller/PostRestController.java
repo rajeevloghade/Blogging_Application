@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.service.IPostService;
+import com.blog.utils.IConstants;
 import com.blog.utils.PostResponse;
 import com.blog.utils.Response;
 import com.blog.wrapper.PostWrapper;
@@ -48,8 +49,8 @@ public class PostRestController {
 
 	@GetMapping("getAllPosts")
 	public ResponseEntity<PostResponse> getAllPosts(
-			@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+			@RequestParam(name = "pageNumber", required = false, defaultValue = IConstants.PAGE_NUMBER) Integer pageNumber,
+			@RequestParam(name = "pageSize", required = false, defaultValue = IConstants.PAGE_SIZE) Integer pageSize,
 			@RequestParam(name = "sortBy", required = false, defaultValue = "postId") String sortBy) {
 		return new ResponseEntity<PostResponse>(postService.getAllPost(pageNumber, pageSize, sortBy), HttpStatus.OK);
 	}
