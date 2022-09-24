@@ -29,7 +29,6 @@ public class FileServiceImpl implements IFileService {
 		String fileName = file.getOriginalFilename();
 
 		// Generate random file name
-
 		String randomUUID = UUID.randomUUID().toString();
 		String randomFileName = randomUUID.concat(fileName.substring(fileName.lastIndexOf(".")));
 
@@ -44,10 +43,10 @@ public class FileServiceImpl implements IFileService {
 		// File Copy
 		try {
 			Files.copy(file.getInputStream(), Paths.get(filePath));
-			fileResponse = new FileResponse(fileName, IConstants.FILE_UPLOADED, IConstants.TRUE, HttpStatus.CREATED,
+			fileResponse = new FileResponse(randomFileName, IConstants.FILE_UPLOADED, IConstants.TRUE, HttpStatus.CREATED,
 					IConstants.SUCCESS);
 		} catch (IOException e) {
-			fileResponse = new FileResponse(fileName, IConstants.SOMETHING_WENT_WRONG, IConstants.FALSE,
+			fileResponse = new FileResponse(randomFileName, IConstants.SOMETHING_WENT_WRONG, IConstants.FALSE,
 					HttpStatus.INTERNAL_SERVER_ERROR, IConstants.FAILURE);
 		}
 
@@ -56,7 +55,6 @@ public class FileServiceImpl implements IFileService {
 
 	@Override
 	public InputStream getResource(String path, String fileName) throws FileNotFoundException {
-		FileResponse fileResponse = null;
 		InputStream inputStream = null;
 		// Full path
 		String filePath = path + File.separator + fileName;

@@ -27,7 +27,7 @@ public class Post {
 	private String content;
 
 	@Column(name = "imagename")
-	private String imageName;
+	private String image;
 
 	@Column(name = "postdate")
 	private Date postDate;
@@ -80,12 +80,12 @@ public class Post {
 		this.content = content;
 	}
 
-	public String getImageName() {
-		return imageName;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public Date getPostDate() {
@@ -98,8 +98,8 @@ public class Post {
 
 	@Override
 	public String toString() {
-		return "Post [postId=" + postId + ", title=" + title + ", content=" + content + ", imageName=" + imageName
-				+ ", postDate=" + postDate + "]";
+		return "Post [postId=" + postId + ", title=" + title + ", content=" + content + ", image=" + image
+				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + "]";
 	}
 
 }

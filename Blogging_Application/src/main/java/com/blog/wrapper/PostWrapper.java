@@ -16,7 +16,7 @@ public class PostWrapper {
 	@NotEmpty
 	private String content;
 
-	private String imageName;
+	private String image;
 
 	private Date postDate;
 
@@ -64,12 +64,12 @@ public class PostWrapper {
 		this.content = content;
 	}
 
-	public String getImageName() {
-		return imageName;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public Date getPostDate() {
@@ -82,8 +82,8 @@ public class PostWrapper {
 
 	@Override
 	public String toString() {
-		return "PostWrapper [postId=" + postId + ", title=" + title + ", content=" + content + ", imageName="
-				+ imageName + ", postDate=" + postDate + ", category=" + category + ", user=" + user + "]";
+		return "PostWrapper [postId=" + postId + ", title=" + title + ", content=" + content + ", image=" + image
+				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + "]";
 	}
 
 }

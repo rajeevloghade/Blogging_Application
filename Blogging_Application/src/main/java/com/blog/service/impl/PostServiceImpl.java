@@ -39,7 +39,6 @@ public class PostServiceImpl implements IPostService {
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		Category categoryById = categoryDao.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-		post.setImageName("default.png");
 		post.setPostDate(new Date());
 		post.setUser(modelMapper.map(userById, UserWrapper.class));
 		post.setCategory(modelMapper.map(categoryById, CategoryWrapper.class));
@@ -52,7 +51,7 @@ public class PostServiceImpl implements IPostService {
 				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 		postById.setTitle(postWrapper.getTitle());
 		postById.setContent(postWrapper.getContent());
-		postById.setImageName(postWrapper.getImageName());
+		postById.setImage(postWrapper.getImage());
 		postById.setPostDate(new Date());
 		return entityToWrapper(postDao.save(postById));
 	}
