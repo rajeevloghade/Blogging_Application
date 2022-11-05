@@ -1,6 +1,7 @@
 package com.blog.wrapper;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -23,6 +24,8 @@ public class PostWrapper {
 	private CategoryWrapper category;
 
 	private UserWrapper user;
+
+	private Set<CommentWrapper> comments;
 
 	public CategoryWrapper getCategory() {
 		return category;
@@ -80,10 +83,19 @@ public class PostWrapper {
 		this.postDate = postDate;
 	}
 
+	public Set<CommentWrapper> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentWrapper> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "PostWrapper [postId=" + postId + ", title=" + title + ", content=" + content + ", image=" + image
-				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + "]";
+				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + ", comments=" + comments
+				+ "]";
 	}
 
 }

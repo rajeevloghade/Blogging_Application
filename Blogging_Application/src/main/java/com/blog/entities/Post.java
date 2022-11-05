@@ -1,7 +1,9 @@
 package com.blog.entities;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -39,6 +42,9 @@ public class Post {
 	@ManyToOne
 	@JoinColumn(name = "userid_fk", referencedColumnName = "userId", nullable = false)
 	private User user;
+
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	private Set<Comment> comments;
 
 	public Category getCategory() {
 		return category;
@@ -96,10 +102,19 @@ public class Post {
 		this.postDate = postDate;
 	}
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", title=" + title + ", content=" + content + ", image=" + image
-				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + "]";
+				+ ", postDate=" + postDate + ", category=" + category + ", user=" + user + ", comments=" + comments
+				+ "]";
 	}
 
 }
