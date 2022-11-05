@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp" packages="" monitorInterval="300">
+	<Properties>
+		<Property name="baseDir">daily-archive-logs</Property>
+	</Properties>
+
+
+	<Appenders>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d [%t] %-5level %logger{0}:%line - %msg%n" />		
+		</Console>
+
+		<RollingFile name="RollingFile"
+			fileName="blogging_application.log"
+			filePattern="${baseDir}/blogging_application-%d{yyyy-MM-dd}-%i.log.zip">
+			
+			<PatternLayout pattern="%d [%t] %-5level %logger{0}:%line - %msg%n" />
+			<Policies>
+				<CronTriggeringPolicy schedule="0 59 23 * * ?" />
+				
+				<SizeBasedTriggeringPolicy size="500 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="100">
+			<!-- 	Nested conditions: the inner condition is only evaluated on files 
+					for which the outer conditions are true. -->
+				<Delete basePath="${baseDir}">
+					<IfFileName glob="blogging_application-*.log.zip">
+						<IfLastModified age="30d">
+
+						</IfLastModified>
+					</IfFileName>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+	</Appenders>
+
+
+	<Loggers>	
+		      
+	   <Logger name="org.apache.ibatis" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+       </Logger>  
+       
+        <Logger name="org.mybatis.spring" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+       </Logger>
+       
+         <Logger name="com.zaxxer.hikari" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+       </Logger>
+              
+         <Logger name="org.springframework" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+       </Logger>	    
+		
+		<Logger name="org.hibernate" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+       </Logger>  	       	  	       
+	
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+			
+		</Root>
+   
+	</Loggers>
+
+
+
+</Configuration>
