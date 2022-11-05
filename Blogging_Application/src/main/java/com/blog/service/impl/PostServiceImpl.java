@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,9 @@ import com.blog.wrapper.UserWrapper;
 @Service
 public class PostServiceImpl implements IPostService {
 
+	private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
+	private static final Logger EMAIL = LogManager.getLogger("EMAIL");
+
 	private @Autowired IPostDao postDao;
 	private @Autowired ModelMapper modelMapper;
 	private @Autowired IUserDao userDao;
@@ -35,6 +40,8 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public PostWrapper createPost(PostWrapper post, Integer userId, Integer categoryId) {
+		LOGGER.info("Inside createPost in PostServiceImpl method started with post: {},userId: {},categoryId: {}", post,
+				userId, categoryId);
 		User userById = userDao.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		Category categoryById = categoryDao.findById(categoryId)
@@ -47,6 +54,8 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public PostWrapper updatePost(PostWrapper postWrapper, Integer postId) {
+		LOGGER.info("Inside updatePost in PostServiceImpl method started with postWrapper: {},postId: {}", postWrapper,
+				postId);
 		Post postById = postDao.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 		postById.setTitle(postWrapper.getTitle());
@@ -58,12 +67,15 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public PostWrapper getPostById(Integer postId) {
+		LOGGER.info("Inside getPostById in PostServiceImpl method started with postId: {}", postId);
 		return entityToWrapper(
 				postDao.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId)));
 	}
 
 	@Override
 	public PostResponse getAllPost(Integer pageNumber, Integer pageSize, String sortBy) {
+		LOGGER.info("Inside getAllPosts in PostServiceImpl method started with pageNumber: {},pageSize: {},sortBy: {}",
+				pageNumber, pageSize, sortBy);
 		PostResponse postResponse = new PostResponse();
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
 		Page<Post> pagePosts = postDao.findAll(pageable);
@@ -79,12 +91,14 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public void deletePost(Integer postId) {
+		LOGGER.info("Inside deletePost in PostServiceImpl method started with postId: {}", postId);
 		postDao.delete(
 				postDao.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId)));
 	}
 
 	@Override
 	public List<PostWrapper> findPostByUser(Integer userId) {
+		LOGGER.info("Inside getPostByUser in PostServiceImpl method started with userId: {}", userId);
 		User userById = userDao.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		return postDao.findPostByUser(userById).stream().map(post -> entityToWrapper(post))
@@ -93,6 +107,7 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public List<PostWrapper> findPostByCategory(Integer categoryId) {
+		LOGGER.info("Inside getPostByCategory in PostServiceImpl method started with categoryId: {}", categoryId);
 		Category categoryById = categoryDao.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("categoryId", "categoryId", categoryId));
 		return postDao.findPostByCategory(categoryById).stream().map(post -> entityToWrapper(post))
@@ -101,6 +116,7 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public List<PostWrapper> searchPost(String title) {
+		LOGGER.info("Inside searchPost in PostServiceImpl method started with title: {}", title);
 		return postDao.findByTitleContaining(title).stream().map(post -> entityToWrapper(post))
 				.collect(Collectors.toList());
 	}

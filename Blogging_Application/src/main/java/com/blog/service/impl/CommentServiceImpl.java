@@ -3,6 +3,8 @@ package com.blog.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ import com.blog.wrapper.CommentWrapper;
 @Service
 public class CommentServiceImpl implements ICommentService {
 
+	private static final Logger LOGGER = LogManager.getLogger(CommentServiceImpl.class);
+	private static final Logger EMAIL = LogManager.getLogger("EMAIL");
+
 	private @Autowired ICommentDao commentDao;
 	private @Autowired IPostDao postDao;
 	private @Autowired IUserDao userDao;
@@ -27,6 +32,9 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public CommentWrapper createComment(CommentWrapper commentWrapper, Integer postId, Integer userId) {
+		LOGGER.info(
+				"Inside createComment in CommentServiceImpl method started with commentWrapper: {},userId: {},postId: {}",
+				commentWrapper, userId, postId);
 		Post postById = postDao.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 		User userById = userDao.findById(userId)
@@ -39,6 +47,8 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public CommentWrapper updateComment(CommentWrapper commentWrapper, Integer commentId) {
+		LOGGER.info("Inside updateComment in CommentServiceImpl method started with commentWrapper: {},commentId: {}",
+				commentWrapper, commentId);
 		Comment commentById = commentDao.findById(commentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comment", "commentId", commentId));
 		commentById.setContent(commentWrapper.getContent());
@@ -47,6 +57,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public void deleteComment(Integer commentId) {
+		LOGGER.info("Inside deleteComment in CommentServiceImpl method started with commentId: {}", commentId);
 		Comment commentById = commentDao.findById(commentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comment", "commentId", commentId));
 		commentDao.delete(commentById);
@@ -54,6 +65,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public List<CommentWrapper> getCommentByPostId(Integer postId) {
+		LOGGER.info("Inside getCommentByPostId in CommentServiceImpl method started with postId: {}", postId);
 		Post postById = postDao.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException("Post", "postId", postId));
 		return commentDao.findCommentByPost(postById).stream().map(comment -> entityToWrapper(comment))

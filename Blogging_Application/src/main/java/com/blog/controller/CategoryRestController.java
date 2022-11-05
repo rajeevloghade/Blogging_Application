@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,21 +28,30 @@ import com.blog.wrapper.CategoryWrapper;
 @RequestMapping("api/category")
 public class CategoryRestController {
 
+	private static final Logger LOGGER = LogManager.getLogger(CategoryRestController.class);
+	private static final Logger EMAIL = LogManager.getLogger("EMAIL");
+
 	private @Autowired ICategoryService categoryService;
 
 	@PostMapping("createCategory")
 	public ResponseEntity<CategoryWrapper> createCategory(@Valid @RequestBody CategoryWrapper categoryWrapper) {
+		LOGGER.info("Inside createCategory in CategoryRestController method started with categoryWrapper: {}",
+				categoryWrapper);
 		return new ResponseEntity<>(categoryService.createCategory(categoryWrapper), HttpStatus.CREATED);
 	}
 
 	@PutMapping("updateCategory/{categoryId}")
 	public ResponseEntity<CategoryWrapper> updateCategory(@Valid @RequestBody CategoryWrapper categoryWrapper,
 			@PathVariable("categoryId") Integer categoryId) {
+		LOGGER.info(
+				"Inside createCategory in CategoryRestController method started with categoryWrapper: {},categoryId: {}",
+				categoryWrapper, categoryId);
 		return ResponseEntity.ok(categoryService.updateCategory(categoryWrapper, categoryId));
 	}
 
 	@DeleteMapping("deleteCategory/{categoryId}")
 	public ResponseEntity<Response> deleteCategory(@PathVariable("categoryId") Integer categoryId) {
+		LOGGER.info("Inside deleteCategory in CategoryRestController method started with categoryId: {}", categoryId);
 		categoryService.deleteCategory(categoryId);
 		return new ResponseEntity<Response>(new Response("true", "Category deleted successfully", null), HttpStatus.OK);
 	}
@@ -50,16 +61,22 @@ public class CategoryRestController {
 			@RequestParam(name = "pageNumber", required = false, defaultValue = IConstants.PAGE_NUMBER) Integer pageNumber,
 			@RequestParam(name = "pageSize", required = false, defaultValue = IConstants.PAGE_SIZE) Integer pageSize,
 			@RequestParam(name = "sortBy", required = false, defaultValue = "categoryId") String sortBy) {
+		LOGGER.info(
+				"Inside getAllPosts in CategoryRestController method started with pageNumber: {},pageSize: {},sortBy: {}",
+				pageNumber, pageSize, sortBy);
 		return ResponseEntity.ok(categoryService.getAllCategory(pageNumber, pageSize, sortBy));
 	}
 
 	@GetMapping("getCategoryById/{categoryId}")
 	public ResponseEntity<CategoryWrapper> getCategoryById(@PathVariable("categoryId") Integer categoryId) {
+		LOGGER.info("Inside getCategoryById in CategoryRestController method started with categoryId: {}", categoryId);
 		return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
 	}
 
 	@GetMapping("searchCategory/{categoryName}")
 	public ResponseEntity<List<CategoryWrapper>> searchCategory(@PathVariable("categoryName") String categoryName) {
+		LOGGER.info("Inside searchCategory in CategoryRestController method started with categoryName: {}",
+				categoryName);
 		return ResponseEntity.ok(categoryService.searchCategory(categoryName));
 	}
 

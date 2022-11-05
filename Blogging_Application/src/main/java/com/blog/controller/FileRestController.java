@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,12 +27,15 @@ import com.blog.utils.FileResponse;
 @RequestMapping("api/file")
 public class FileRestController {
 
-	private @Autowired IFileService fileService;
+	private static final Logger LOGGER = LogManager.getLogger(FileRestController.class);
+	private static final Logger EMAIL = LogManager.getLogger("EMAIL");
 
+	private @Autowired IFileService fileService;
 	private @Value("${project.image}") String path;
 
 	@PostMapping("fileUpload")
 	public ResponseEntity<FileResponse> uploadFile(@RequestParam("image") MultipartFile image) {
+		LOGGER.info("Inside uploadFile in FileRestController method started with image: {}", image);
 		FileResponse uploadImage = fileService.uploadImage(path, image);
 		return new ResponseEntity<FileResponse>(new FileResponse(uploadImage.getFileName(), uploadImage.getMessage(),
 				uploadImage.getStatus(), uploadImage.getCode(), uploadImage.getPayload()), HttpStatus.CREATED);
@@ -39,6 +44,8 @@ public class FileRestController {
 	@GetMapping(path = "getResource/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public void downloadFile(@PathVariable("fileName") String fileName, HttpServletResponse response)
 			throws IOException {
+		LOGGER.info("Inside downloadFile in FileRestController method started with fileName: {},response: {}", fileName,
+				response);
 		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 		StreamUtils.copy(fileService.getResource(path, fileName), response.getOutputStream());
 	}
