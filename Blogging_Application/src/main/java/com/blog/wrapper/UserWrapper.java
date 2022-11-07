@@ -5,6 +5,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserWrapper {
 
 	private int userId;
@@ -16,6 +18,7 @@ public class UserWrapper {
 	@Email(message = "email address is invalid")
 	private String email;
 
+//	@JsonIgnore
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "a digit must occur at least once and a lower case letter must occur at least once and an upper case letter must occur at least once and a special character must occur at least once and no whitespace allowed in the entire string and anything, at least eight places though in paasword")
 	private String password;

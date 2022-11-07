@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,7 @@ public class UserRestController {
 		return ResponseEntity.ok(userService.updateUser(userWrapper, userId));
 	}
 
+//	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("deleteUser/{userId}")
 	public ResponseEntity<Response> deleteUser(@PathVariable("userId") Integer userId) {
 		LOGGER.info("Inside deleteUser in UserRestController method started with userId: {}", userId);

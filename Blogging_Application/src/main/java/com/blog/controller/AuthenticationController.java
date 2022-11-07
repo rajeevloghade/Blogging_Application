@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.exception.ApiException;
 import com.blog.security.JWTTokenHelper;
 import com.blog.wrapper.JWTAuthenticationRequest;
 import com.blog.wrapper.JWTAuthenticationResponse;
@@ -54,7 +55,7 @@ public class AuthenticationController {
 			LOGGER.error(
 					"Exception ocuured while authenticating credentials inside authenticate method in AuthenticationController with userName: {}, password: {}, badCredentialsException: {}",
 					userName, password, badCredentialsException);
-			throw new Exception("Invalid Credentials");
+			throw new ApiException("Invalid Credentials");
 		}
 	}
 
