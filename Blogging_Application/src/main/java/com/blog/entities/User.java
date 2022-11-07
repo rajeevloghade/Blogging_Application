@@ -110,6 +110,7 @@ public class User implements UserDetails {
 		LOGGER.info("Inside getAuthorities in User method started");
 		List<SimpleGrantedAuthority> authorities = this.roles.stream()
 				.map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+		LOGGER.info("authorities : {}", authorities);
 		return authorities;
 	}
 

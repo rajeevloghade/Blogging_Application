@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.controller.CommentRestController;
@@ -28,10 +29,12 @@ public class UserServiceImpl implements IUserService {
 
 	private @Autowired IUserDao userDao;
 	private @Autowired ModelMapper modelMapper;
+	private @Autowired PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserWrapper createUser(UserWrapper userWrapper) {
 		LOGGER.info("Inside createUser in UserRestController method started with userWrapper: {}", userWrapper);
+		userWrapper.setPassword(passwordEncoder.encode(userWrapper.getPassword()));
 		return entityToWrapper(userDao.save(wrapperToEntity(userWrapper)));
 	}
 
@@ -44,7 +47,7 @@ public class UserServiceImpl implements IUserService {
 		userById.setName(userWrapper.getName());
 		userById.setEmail(userWrapper.getEmail());
 		userById.setAbout(userWrapper.getAbout());
-		userById.setPassword(userWrapper.getPassword());
+		userById.setPassword(passwordEncoder.encode(userWrapper.getPassword()));
 		return entityToWrapper(userDao.save(userById));
 	}
 
