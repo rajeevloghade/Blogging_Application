@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.exception.ApiException;
 import com.blog.security.JWTTokenHelper;
+import com.blog.service.IUserService;
 import com.blog.wrapper.JWTAuthenticationRequest;
 import com.blog.wrapper.JWTAuthenticationResponse;
+import com.blog.wrapper.UserWrapper;
 
 @RestController
 @RequestMapping("api/auth")
@@ -30,6 +32,13 @@ public class AuthenticationController {
 	private @Autowired JWTTokenHelper jWTTokenHelper;
 	private @Autowired UserDetailsService userDetailsService;
 	private @Autowired AuthenticationManager authenticationManager;
+	private @Autowired IUserService userService;
+
+	@PostMapping("/registerUser")
+	public ResponseEntity<UserWrapper> registerUser(@RequestBody UserWrapper userWrapper) {
+		LOGGER.info("Inside registerUser method in AuthenticationController started with userWrapper: {}", userWrapper);
+		return new ResponseEntity<UserWrapper>(userService.registerUser(userWrapper), HttpStatus.OK);
+	}
 
 	@PostMapping("/login")
 	public ResponseEntity<JWTAuthenticationResponse> createToken(@RequestBody JWTAuthenticationRequest request)

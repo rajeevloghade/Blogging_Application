@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,11 +14,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	public static final String[] PUBLIC_URLS = { "/api/v1/auth/**", "/api/docs", "/swagger-ui.html",
+			"/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "/api/v1/users/" };
 
 	private static final Logger LOGGER = LogManager.getLogger(SecurityConfig.class);
 	private static final Logger EMAIL = LogManager.getLogger("EMAIL");
@@ -31,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		LOGGER.info("Inside configure in SecurityConfig method started with http: {}", http);
-		http.csrf().disable().authorizeHttpRequests().antMatchers("/api/auth/**").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling().authenticationEntryPoint(jWTAuthenticationEntryPoint).and()
+		http.csrf().disable().authorizeHttpRequests().antMatchers(PUBLIC_URLS).permitAll().anyRequest().authenticated()
+				.and().exceptionHandling().authenticationEntryPoint(jWTAuthenticationEntryPoint).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

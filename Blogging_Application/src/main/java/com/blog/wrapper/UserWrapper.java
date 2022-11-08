@@ -1,11 +1,12 @@
 package com.blog.wrapper;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserWrapper {
 
@@ -25,6 +26,8 @@ public class UserWrapper {
 
 	@NotEmpty
 	private String about;
+
+	private Set<UserRoleWrapper> roles = new HashSet<>();
 
 	public int getUserId() {
 		return userId;
@@ -69,7 +72,7 @@ public class UserWrapper {
 	@Override
 	public String toString() {
 		return "UserWrapper [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", about=" + about + "]";
+				+ ", about=" + about + ", roles=" + roles + "]";
 	}
 
 }

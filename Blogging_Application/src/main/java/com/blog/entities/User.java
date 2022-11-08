@@ -2,6 +2,7 @@ package com.blog.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -57,7 +58,15 @@ public class User implements UserDetails {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "userroles", joinColumns = @JoinColumn(name = "user"), inverseJoinColumns = @JoinColumn(name = "role"))
-	private Set<UserRole> roles;
+	private Set<UserRole> roles = new HashSet<>();
+
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -102,7 +111,7 @@ public class User implements UserDetails {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password + ", about="
-				+ about + "]";
+				+ about + ", posts=" + posts + ", comments=" + comments + ", roles=" + roles + "]";
 	}
 
 	@Override

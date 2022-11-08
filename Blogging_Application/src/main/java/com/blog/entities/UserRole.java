@@ -10,7 +10,6 @@ import javax.persistence.Id;
 public class UserRole {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userroleid")
 	private int userId;
 

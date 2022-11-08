@@ -6,6 +6,8 @@ import com.blog.wrapper.UserWrapper;
 
 public interface IUserService {
 
+	UserWrapper registerUser(UserWrapper user);
+
 	UserWrapper createUser(UserWrapper user);
 
 	UserWrapper updateUser(UserWrapper user, Integer userId);

@@ -11,4 +11,6 @@ public interface IConstants {
 	public static final String FILE_UPLOADED = "File Uploaded Successfully";
 	public static final String FILE_DOWNLOADED = "File Downloaded Successfully";
 	public static final String SOMETHING_WENT_WRONG = "Something Went Wrong";
+	public static final int ADMIN_USER = 501;
+	public static final int NORMAL_USER = 502;
 }
