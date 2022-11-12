@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +24,11 @@ import com.blog.utils.IConstants;
 import com.blog.utils.Response;
 import com.blog.wrapper.UserWrapper;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
+@Api(tags = "User", description = "Provides User APIs")
 @RestController
 @RequestMapping("api/user")
 public class UserRestController {
@@ -34,12 +38,16 @@ public class UserRestController {
 
 	private @Autowired IUserService userService;
 
+	@ApiOperation(value = "This API is used to create user.", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("createUser")
 	public ResponseEntity<UserWrapper> createUser(@Valid @RequestBody UserWrapper userWrapper) {
 		LOGGER.info("Inside createUser in UserRestController method started with userWrapper: {}", userWrapper);
 		return new ResponseEntity<>(userService.createUser(userWrapper), HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "This API is used to update user.", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PutMapping("updateUser/{userId}")
 	public ResponseEntity<UserWrapper> updateUser(@Valid @RequestBody UserWrapper userWrapper,
 			@PathVariable("userId") Integer userId) {
@@ -48,6 +56,8 @@ public class UserRestController {
 		return ResponseEntity.ok(userService.updateUser(userWrapper, userId));
 	}
 
+	@ApiOperation(value = "This API is used to delete user.", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 //	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("deleteUser/{userId}")
 	public ResponseEntity<Response> deleteUser(@PathVariable("userId") Integer userId) {
@@ -56,6 +66,8 @@ public class UserRestController {
 		return new ResponseEntity<Response>(new Response("true", "User deleted successfully", null), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to get all users.", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getAllUsers")
 	public ResponseEntity<List<UserWrapper>> getAllUsers(
 			@RequestParam(name = "pageNumber", required = false, defaultValue = IConstants.PAGE_NUMBER) Integer pageNumber,
@@ -67,12 +79,16 @@ public class UserRestController {
 		return ResponseEntity.ok(userService.getAllUser(pageNumber, pageSize, sortBy));
 	}
 
+	@ApiOperation(value = "This API is used to get user by userId", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getUserById/{userId}")
 	public ResponseEntity<UserWrapper> getUserById(@PathVariable("userId") Integer userId) {
 		LOGGER.info("Inside getUserById in UserRestController method started with userId: {}", userId);
 		return ResponseEntity.ok(userService.getUserById(userId));
 	}
 
+	@ApiOperation(value = "This API is used to search user", tags = "User", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("searchUser/{userName}")
 	public ResponseEntity<List<UserWrapper>> searchUser(@PathVariable("userName") String userName) {
 		LOGGER.info("Inside searchUser in UserRestController method started with userName: {}", userName);

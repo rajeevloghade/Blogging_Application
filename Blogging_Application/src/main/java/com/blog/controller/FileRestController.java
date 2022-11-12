@@ -22,7 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.blog.service.IFileService;
 import com.blog.utils.FileResponse;
+import com.blog.utils.Response;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
+@Api(tags = "File", description = "Provides Upload and get the file (image) APIs")
 @RestController
 @RequestMapping("api/file")
 public class FileRestController {
@@ -33,6 +39,8 @@ public class FileRestController {
 	private @Autowired IFileService fileService;
 	private @Value("${project.image}") String path;
 
+	@ApiOperation(value = "This API is used to upload image.", tags = "File", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("fileUpload")
 	public ResponseEntity<FileResponse> uploadFile(@RequestParam("image") MultipartFile image) {
 		LOGGER.info("Inside uploadFile in FileRestController method started with image: {}", image);
@@ -41,6 +49,8 @@ public class FileRestController {
 				uploadImage.getStatus(), uploadImage.getCode(), uploadImage.getPayload()), HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "This API is used to get the image.", tags = "File", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping(path = "getResource/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public void downloadFile(@PathVariable("fileName") String fileName, HttpServletResponse response)
 			throws IOException {

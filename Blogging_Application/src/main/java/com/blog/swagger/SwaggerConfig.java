@@ -1,6 +1,8 @@
 package com.blog.swagger;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,18 +32,30 @@ public class SwaggerConfig {
 	 */
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.blog"))
-				.paths(PathSelectors.any()).build().apiInfo(apiInfo()).securitySchemes(Arrays.asList(apiKey()));
+		Set<String> protocols = new HashSet<String>();
+		protocols.add("HTTP");
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.blog"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo())
+				.securitySchemes(Arrays.asList(apiKey()))
+				.protocols(protocols);
 	}
 
 	/**
 	 * @return ApiInfo
 	 */
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Blogging-Application")
-				.description("Blogging Application reference for developers").termsOfServiceUrl("")
+		return new ApiInfoBuilder()
+				.title("Blogging-Application")
+				.description("Blogging Application reference for developers")
+				.termsOfServiceUrl("")
 				.contact(new Contact("Blogging-Application", "", "rajeevloghade010@gmail.com"))
-				.license("Blogging Application License").licenseUrl("rajeevloghade010@gmail.com").version("1.0")
+				.license("Blogging Application License")
+				.licenseUrl("rajeevloghade010@gmail.com")
+				.version("1.0")
 				.build();
 	}
 
@@ -56,7 +70,9 @@ public class SwaggerConfig {
 
 	@Bean
 	UiConfiguration uiConfig() {
-		return UiConfigurationBuilder.builder().displayRequestDuration(true).filter(true)
+		return UiConfigurationBuilder.builder()
+				.displayRequestDuration(true)
+				.filter(true)
 //	            .deepLinking(true)
 //	            .displayOperationId(true)
 //	            .defaultModelExpandDepth(1)

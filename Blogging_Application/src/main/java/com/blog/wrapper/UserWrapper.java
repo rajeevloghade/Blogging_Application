@@ -8,6 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "User Wrapper")
 public class UserWrapper {
 
 	private int userId;

@@ -22,8 +22,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String[] PUBLIC_URLS = { "/api/v1/auth/**", "/api/docs", "/swagger-ui.html",
-			"/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "/api/v1/users/" };
+	public static final String[] PUBLIC_URLS = { "/api/auth/**", "/api/docs", "/swagger-ui.html",
+			"/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "api/user" };
 
 	private static final Logger LOGGER = LogManager.getLogger(SecurityConfig.class);
 	private static final Logger EMAIL = LogManager.getLogger("EMAIL");

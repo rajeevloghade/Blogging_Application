@@ -3,6 +3,9 @@ package com.blog.wrapper;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "Category Wrapper")
 public class CategoryWrapper {
 
 	private Integer categoryId;

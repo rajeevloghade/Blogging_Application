@@ -20,6 +20,11 @@ import com.blog.service.ICommentService;
 import com.blog.utils.Response;
 import com.blog.wrapper.CommentWrapper;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
+@Api(tags = "Comment", description = "Provides Comment APIs")
 @RestController
 @RequestMapping("api/comment")
 public class CommentRestController {
@@ -29,6 +34,8 @@ public class CommentRestController {
 
 	private @Autowired ICommentService commentService;
 
+	@ApiOperation(value = "This API is used to create comment.", tags = "Comment", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("createComment/post/{postId}/user/{userId}")
 	public ResponseEntity<CommentWrapper> createComment(@RequestBody CommentWrapper commentWrapper,
 			@PathVariable Integer postId, @PathVariable Integer userId) {
@@ -39,6 +46,8 @@ public class CommentRestController {
 				HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "This API is used to delete comment.", tags = "Comment", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@DeleteMapping("deleteComment/{commentId}")
 	public ResponseEntity<Response> deleteComment(@PathVariable Integer commentId) {
 		LOGGER.info("Inside deleteComment in CommentRestController method started with commentId: {}", commentId);
@@ -46,6 +55,8 @@ public class CommentRestController {
 		return new ResponseEntity<Response>(new Response("true", "Comment deleted successfully", null), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to update comment.", tags = "Comment", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PutMapping("updateComment/{commentId}")
 	public ResponseEntity<CommentWrapper> updateComment(@RequestBody CommentWrapper commentWrapper,
 			@PathVariable Integer commentId) {
@@ -55,6 +66,8 @@ public class CommentRestController {
 		return ResponseEntity.ok(commentService.updateComment(commentWrapper, commentId));
 	}
 
+	@ApiOperation(value = "This API is used to get comment by postId.", tags = "Comment", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getCommentByPostId/{postId}")
 	public ResponseEntity<List<CommentWrapper>> getCommentByPostId(@PathVariable Integer postId) {
 		LOGGER.info("Inside getCommentByPostId in CommentRestController method started with postId: {}", postId);

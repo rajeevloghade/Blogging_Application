@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.blog.wrapper.PostWrapper;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "Post Response")
 public class PostResponse {
 
 	private List<PostWrapper> posts;

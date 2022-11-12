@@ -2,6 +2,9 @@ package com.blog.utils;
 
 import org.springframework.http.HttpStatus;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "File Response")
 public class FileResponse {
 
 	private String fileName;

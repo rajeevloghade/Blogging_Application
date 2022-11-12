@@ -18,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.exception.ApiException;
 import com.blog.security.JWTTokenHelper;
 import com.blog.service.IUserService;
+import com.blog.utils.Response;
 import com.blog.wrapper.JWTAuthenticationRequest;
 import com.blog.wrapper.JWTAuthenticationResponse;
 import com.blog.wrapper.UserWrapper;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
+@Api(tags = "Authentication", description = "Provides Authentication APIs")
 @RestController
 @RequestMapping("api/auth")
 public class AuthenticationController {
@@ -34,12 +40,16 @@ public class AuthenticationController {
 	private @Autowired AuthenticationManager authenticationManager;
 	private @Autowired IUserService userService;
 
+	@ApiOperation(value = "This API is used to register user.", tags = "Authentication", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("/registerUser")
 	public ResponseEntity<UserWrapper> registerUser(@RequestBody UserWrapper userWrapper) {
 		LOGGER.info("Inside registerUser method in AuthenticationController started with userWrapper: {}", userWrapper);
 		return new ResponseEntity<UserWrapper>(userService.registerUser(userWrapper), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to create token.", tags = "Authentication", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("/login")
 	public ResponseEntity<JWTAuthenticationResponse> createToken(@RequestBody JWTAuthenticationRequest request)
 			throws Exception {

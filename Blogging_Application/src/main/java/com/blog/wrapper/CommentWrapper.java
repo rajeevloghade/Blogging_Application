@@ -1,5 +1,8 @@
 package com.blog.wrapper;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "Comments Wrapper")
 public class CommentWrapper {
 
 	private Integer commentId;

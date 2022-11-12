@@ -1,5 +1,8 @@
 package com.blog.wrapper;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "JWT Authentication Request")
 public class JWTAuthenticationRequest {
 
 	private String userName;

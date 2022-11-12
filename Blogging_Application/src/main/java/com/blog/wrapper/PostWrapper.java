@@ -6,6 +6,9 @@ import java.util.Set;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "Post Wrapper")
 public class PostWrapper {
 
 	private Integer postId;

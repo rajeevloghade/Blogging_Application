@@ -1,9 +1,16 @@
 package com.blog.utils;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("Response")
 public class Response {
 
+	@ApiModelProperty(notes = "Apis' execution status", example = "true")
 	private String status;
+	@ApiModelProperty(notes = "Message to define the execution status of an APis", example = "success")
 	private String message;
+	@ApiModelProperty(notes = "Payload which APis returns as a response")
 	private Object payload;
 
 	public Response(String status, String message, Object payload) {

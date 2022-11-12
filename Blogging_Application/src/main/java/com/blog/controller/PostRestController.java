@@ -29,6 +29,11 @@ import com.blog.utils.Response;
 import com.blog.wrapper.PostWrapper;
 import com.google.gson.Gson;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
+@Api(tags = "Post", description = "Provides Post APIs")
 @RestController
 @RequestMapping("api/post")
 public class PostRestController {
@@ -40,6 +45,8 @@ public class PostRestController {
 	private @Autowired IFileService fileService;
 	private @Value("${project.image}") String path;
 
+	@ApiOperation(value = "This API is used to create post.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("createPost/user/{userId}/category/{categoryId}")
 	public ResponseEntity<PostWrapper> createPost(@Valid @RequestParam("post") String post,
 			@PathVariable Integer userId, @PathVariable Integer categoryId,
@@ -53,6 +60,8 @@ public class PostRestController {
 		return new ResponseEntity<>(postService.createPost(postWrapper, userId, categoryId), HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "This API is used to update post.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PutMapping("updatePost/{postId}")
 	public ResponseEntity<PostWrapper> updatePost(@Valid @RequestParam("post") String post,
 			@PathVariable("postId") Integer postId, @RequestParam("image") MultipartFile image) {
@@ -64,6 +73,8 @@ public class PostRestController {
 		return ResponseEntity.ok(postService.updatePost(postWrapper, postId));
 	}
 
+	@ApiOperation(value = "This API is used to delete post.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@DeleteMapping("deletePost/{postId}")
 	public ResponseEntity<Response> deletePost(@PathVariable("postId") Integer postId) {
 		LOGGER.info("Inside deletePost in PostRestController method started with postId: {}", postId);
@@ -71,6 +82,8 @@ public class PostRestController {
 		return new ResponseEntity<Response>(new Response("true", "Post deleted successfully", null), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to get all posts.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getAllPosts")
 	public ResponseEntity<PostResponse> getAllPosts(
 			@RequestParam(name = "pageNumber", required = false, defaultValue = IConstants.PAGE_NUMBER) Integer pageNumber,
@@ -82,30 +95,40 @@ public class PostRestController {
 		return new ResponseEntity<PostResponse>(postService.getAllPost(pageNumber, pageSize, sortBy), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to get post by postId.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getPostById/{postId}")
 	public ResponseEntity<PostWrapper> getPostById(@PathVariable("postId") Integer postId) {
 		LOGGER.info("Inside getPostById in PostRestController method started with postId: {}", postId);
 		return ResponseEntity.ok(postService.getPostById(postId));
 	}
 
+	@ApiOperation(value = "This API is used to get post by userId.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getPostByUser/{userId}")
 	public ResponseEntity<List<PostWrapper>> getPostByUser(@PathVariable("userId") Integer userId) {
 		LOGGER.info("Inside getPostByUser in PostRestController method started with userId: {}", userId);
 		return new ResponseEntity<List<PostWrapper>>(postService.findPostByUser(userId), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to get post by categoryId.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("getPostByCategory/{categoryId}")
 	public ResponseEntity<List<PostWrapper>> getPostByCategory(@PathVariable("categoryId") Integer categoryId) {
 		LOGGER.info("Inside getPostByCategory in PostRestController method started with categoryId: {}", categoryId);
 		return new ResponseEntity<List<PostWrapper>>(postService.findPostByCategory(categoryId), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to get search post", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@GetMapping("searchPost/{title}")
 	public ResponseEntity<List<PostWrapper>> searchPost(@PathVariable("title") String title) {
 		LOGGER.info("Inside searchPost in PostRestController method started with title: {}", title);
 		return new ResponseEntity<List<PostWrapper>>(postService.searchPost(title), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "This API is used to upload post image.", tags = "Post", authorizations = {
+			@Authorization(value = "JWT") }, response = Response.class)
 	@PostMapping("uploadPostImage/{postId}")
 	public ResponseEntity<PostWrapper> uploadPostImage(@RequestParam("image") MultipartFile image,
 			@PathVariable("postId") Integer postId) {
