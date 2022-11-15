@@ -39,11 +39,11 @@ public class BloggingApplication implements CommandLineRunner {
 		try {
 			UserRole admin = new UserRole();
 			admin.setUserId(IConstants.ADMIN_USER);
-			admin.setName("ADMIN");
+			admin.setName("ROLE_ADMIN");
 
 			UserRole normal = new UserRole();
 			normal.setUserId(IConstants.NORMAL_USER);
-			normal.setName("NORMAL");
+			normal.setName("ROLE_NORMAL");
 			userRoleDao.saveAll(Arrays.asList(admin, normal));
 		} catch (Exception exception) {
 			LOGGER.error("Exception occured while inserting roles : {}", exception);

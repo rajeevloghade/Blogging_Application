@@ -2,6 +2,7 @@ package com.blog.swagger;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
@@ -13,12 +14,16 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 
 @Configuration
 @EnableSwagger2
@@ -40,8 +45,19 @@ public class SwaggerConfig {
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo())
+				.securityContexts(securityContexts())
 				.securitySchemes(Arrays.asList(apiKey()))
 				.protocols(protocols);
+	}
+
+	private List<SecurityContext> securityContexts() {
+		return Arrays.asList(SecurityContext.builder().securityReferences(securityReferences()).build());
+	}
+
+	
+	private List<SecurityReference> securityReferences() {
+		AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
+		return Arrays.asList(new SecurityReference("JWT", new AuthorizationScope[] { scope }));
 	}
 
 	/**
