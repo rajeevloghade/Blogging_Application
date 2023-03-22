@@ -1,0 +1,968 @@
+{
+	"info": {
+		"_postman_id": "c4d756de-90d2-489e-af75-f7a8bf82e9a4",
+		"name": "Blogging-Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19094369"
+	},
+	"item": [
+		{
+			"name": "User Apis",
+			"item": [
+				{
+					"name": "CreatUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWplZXYxMjNAZ21haWwuY29tIiwiZXhwIjoxNjY3ODQ2NTkzLCJpYXQiOjE2Njc4Mjg1OTN9.hhcCXgRbVEpnhmgMRljYgmVszbW9ECcIE_XxSGL7lN-cWecxDsIP_wTo5fN604Tq0gTOJLZeMYLn1tkJdbQeNw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Admin\",\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"Admin@123\",\r\n    \"about\":\"This is about Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/user/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkZWZoQGdtYWlsLmNvbSIsImV4cCI6MTY2Nzg0NTk1MywiaWF0IjoxNjY3ODI3OTUzfQ.T5BDZccA-vvzk97F4hAmIB6p3N_jqYRHpvlR5qr5ZiuswbGadEg9S9HmvlP9GQBl07HosI4c_PzdHUFRqpIU1A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9091/api/user/getAllUsers?pageNumber=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"getAllUsers"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/user/getUserById/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"getUserById",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE2Njc4NDcxMzUsImlhdCI6MTY2NzgyOTEzNX0.Lkkm85PgMVEr1KnKnK9pMXJWb84ckuOPY5WCSAKkzb6f3FBrRub7PrjRSOQeve21yRYH57ZpCulOxoJfTzllAg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9091/api/user/deleteUser/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"deleteUser",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/user/updateUser/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"updateUser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/user/searchUser/:userName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"user",
+								"searchUser",
+								":userName"
+							],
+							"variable": [
+								{
+									"key": "userName",
+									"value": "Rajeev"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category Apis",
+			"item": [
+				{
+					"name": "CreatCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"Politics\",\r\n    \"categoryDescription\":\"This category contains Politics related posts.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/category/createCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"createCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Rajeev@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "rajeev123@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/category/getAllCategories?pageNumber=0&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"getAllCategories"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/category/getCategoryById/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"getCategoryById",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/category/deleteCategory/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"deleteCategory",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"Politics\",\r\n    \"categoryDescription\":\"This category contains Politics related posts.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/category/updateCategory/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"updateCategory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/category/searchCategory/:categoryName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"category",
+								"searchCategory",
+								":categoryName"
+							],
+							"variable": [
+								{
+									"key": "categoryName",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post Apis",
+			"item": [
+				{
+					"name": "CreatPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/C:/Users/rajeev.loghade_infob/Desktop/test.png"
+								},
+								{
+									"key": "post",
+									"value": "{\"title\" : \"Post Test Image\",   \"content\" : \"This is post test image content\"}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/post/createPost/user/1/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"createPost",
+								"user",
+								"1",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE2NjkxMjAwMjIsImlhdCI6MTY2OTEwMjAyMn0.pCMpfIFjCoga5lkLljM3xWtmGhCVyBhwh9VedhK4PBcZDyNJ59-SGCq1WXFWZIIGnfrNUH7IMAj58F2ZJ9gC2Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9091/api/post/getAllPosts?pageNumber=0&pageSize=5&sortBy=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"getAllPosts"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "sortBy",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWplZXYxMjNAZ21haWwuY29tIiwiZXhwIjoxNjY3NzQyMTMzLCJpYXQiOjE2Njc3MjQxMzN9.UJ2i6xard69081sJ82hMZdl6rD03JJcFpOS-bFjf1trJSv0LzqtyqSp_UgKyCiHQqGBbmstHwrcyfNH3LPw0tA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9091/api/post/getPostById/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"getPostById",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/post/deletePost/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"deletePost",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/C:/Users/rajeev.loghade_infob/Desktop/test.png"
+								},
+								{
+									"key": "post",
+									"value": "{\"title\" : \"Post Test Image\",   \"content\" : \"This is post test image content\"}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/post/updatePost/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"updatePost",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/post/getPostByUser/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"getPostByUser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By categoryId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/post/getPostByCategory/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"getPostByCategory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/post/searchPost/:title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"searchPost",
+								":title"
+							],
+							"variable": [
+								{
+									"key": "title",
+									"value": "Post"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Post Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/rajeev.loghade_infob/Desktop/test.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/post/uploadPostImage/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"post",
+								"uploadPostImage",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image Apis",
+			"item": [
+				{
+					"name": "File Upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/file/fileUpload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"file",
+								"fileUpload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resource",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/file/getResource/:fileName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"file",
+								"getResource",
+								":fileName"
+							],
+							"variable": [
+								{
+									"key": "fileName",
+									"value": "3e09b13d-eed0-4a75-8f40-65879ac4f2f6.png"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment Apis",
+			"item": [
+				{
+					"name": "Get Comment By PostId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWplZXYxMjNAZ21haWwuY29tIiwiZXhwIjoxNjY3ODI1OTIxLCJpYXQiOjE2Njc4MDc5MjF9.Pmy0S4zgNGDv6Wj3KDO6NQOXTtqAN7EsDC28fWEnfrgo2mP-eeZMtoravH-VXXWXGYEY3nsgva872YUUzIkN1g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9091/api/comment/getCommentByPostId/:postId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"comment",
+								"getCommentByPostId",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"This is post 1 comment by user 11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/comment/createComment/post/:postId/user/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"comment",
+								"createComment",
+								"post",
+								":postId",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/comment/deleteComment/:commmentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"comment",
+								"deleteComment",
+								":commmentId"
+							],
+							"variable": [
+								{
+									"key": "commmentId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"This is post 1 comment 2 Update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/comment/updateComment/:commmentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"comment",
+								"updateComment",
+								":commmentId"
+							],
+							"variable": [
+								{
+									"key": "commmentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login Api",
+			"item": [
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"abcdefh@gmail.com\",\r\n    \"password\": \"Abcd#123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rajeev Loghade 4\",\r\n    \"email\": \"rajeevtest4@gmail.com\",\r\n    \"password\": \"Rajeev@123\",\r\n    \"about\": \"This is about Rajeev 4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9091/api/auth/registerUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"auth",
+								"registerUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Swagger Apis Test",
+			"item": [
+				{
+					"name": "Swagger Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9091/api/docs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"api",
+								"docs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
