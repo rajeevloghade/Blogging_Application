@@ -6,7 +6,7 @@ Blogging Application
 
 for installation of this project in your system 
 
-1. You must have Java 8, Maven and Mysql 8 installed in your system.
+1. You must have **Java 8, Maven and Mysql 8** installed in your system.
 
 2. Take checkout by using cmd 
 
@@ -20,11 +20,11 @@ for installation of this project in your system
 
 # Framework/Concepts used in Blogging Application : 
 
-- Spring Boot (Rapid Application Development)
-- Spring Security (JWT Implementation)
-- Swagger Implementation
-- Hibernate (To connect Java Application with Database)
-- MYSQL8 (Database)
+- **Spring Boot (Rapid Application Development)**
+- **Spring Security (JWT Implementation)**
+- **Swagger Implementation**
+- **Hibernate (To connect Java Application with Database)**
+- **MYSQL8 (Database)**
 
 # Project Description
 
@@ -52,4 +52,4 @@ Overall, the Blogging Application is an excellent example of how to build a mono
 
 # Future Enhancements
 
-We can enhance this project by incorporating various cutting-edge technologies, such as Microservices, Docker, Kubernetes, Kafka, and AWS.
+We can enhance this project by incorporating various cutting-edge technologies, such as **Microservices, Docker, Kubernetes, Kafka, and AWS.**
