@@ -20,11 +20,11 @@ for installation of this project in your system
 
 # Framework/Concepts used in Blogging Application : 
 
-Spring Boot (Rapid Application Development)
-Spring Security (JWT Implementation)
-Swagger Implementation
-Hibernate (To connect Java Application with Database)
-MYSQL8 (Database)
+- Spring Boot (Rapid Application Development)
+- Spring Security (JWT Implementation)
+- Swagger Implementation
+- Hibernate (To connect Java Application with Database)
+- MYSQL8 (Database)
 
 # Project Description
 
